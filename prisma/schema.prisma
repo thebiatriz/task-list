@@ -18,7 +18,7 @@ model user {
 model project {
   id      Int    @id @default(autoincrement())
   name    String
-  user    user   @relation(fields: [userId], references: [id])
+  user    user   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId  Int
   tasks   task[]
 }
@@ -27,6 +27,6 @@ model task {
   id           Int     @id @default(autoincrement())
   description  String
   isComplete   Boolean @default(false)
-  project      project @relation(fields: [projectId], references: [id])
+  project      project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId    Int
 }
