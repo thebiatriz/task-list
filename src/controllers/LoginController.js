@@ -1,5 +1,6 @@
 import { prismaClient } from "../database/prismaClient";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 class LoginController {
 
@@ -15,9 +16,9 @@ class LoginController {
                 return res.status(404).json({ success: false, message: "Usuário não encontrado" });
             }
 
-            const isPasswordValid = await bcrypt.compareSync(password, user.password);
+            const isPasswordValid = bcrypt.compareSync(password, user.password);
 
-            if (isPasswordValid) {
+            if (!isPasswordValid) {
                 return res.status(401).json({ success: false, message: "Senha inválida" });
             }
 
