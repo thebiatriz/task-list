@@ -1,9 +1,8 @@
-import { prismaClient } from "../database/prismaClient";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import { prismaClient } from "../database/prismaClient.js";
 
 class LoginController {
-
     static async login(req, res) {
         const { email, password } = req.body;
 
@@ -26,10 +25,10 @@ class LoginController {
 
             const token = jwt.sign(payload, process.env.SECRET_JWT, { expiresIn: '12h' });
 
-            return res.status(200).json({ success: true, message: "Login realizado com sucesso", user: payload, token: token });
+            return res.status(200).json({ message: "Login realizado com sucesso", user: payload, token: token });
 
         } catch (error) {
-            return res.status(500).json({ success: false, message: "Erro ao fazer login", details: error.message });
+            return res.status(500).json({ message: "Erro ao fazer login", details: error.message });
         }
     }
 }
