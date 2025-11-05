@@ -5,13 +5,14 @@ import cors from "cors";
 
 dotenv.config();
 const app = express();
-
-app.use(cors({
-    origin: "*",
+const corsOptions = {
+    origin: "*", 
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
-}));
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
-app.use("/", router);
+app.use(router);
 
 const PORT = process.env.PORT || 8888;
 
