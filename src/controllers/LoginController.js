@@ -21,7 +21,7 @@ class LoginController {
                 return res.status(401).json({ success: false, message: "Senha inválida" });
             }
 
-            const payload = { id: user.id, name: user.name };
+            const payload = { id: user.id, name: user.name, email: user.email };
 
             const token = jwt.sign(payload, process.env.SECRET_JWT, { expiresIn: '12h' });
 
